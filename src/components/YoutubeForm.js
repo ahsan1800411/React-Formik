@@ -9,6 +9,7 @@ const initialValues = {
 
 const onSubmit = (values) => console.log(values);
 
+// custom validtion but this validate function is built in formik
 const validate = (values) => {
   let errors = {};
   if (!values.name) {
@@ -29,43 +30,34 @@ const validate = (values) => {
 };
 
 const YoutubeForm = () => {
-  const { handleChange, values, handleSubmit, errors, handleBlur, touched } =
-    useFormik({
-      initialValues,
-      onSubmit,
-      validate,
-    });
+  const {
+    // handleChange,
+    // values,
+    handleSubmit,
+    errors,
+    // handleBlur,
+    touched,
+    getFieldProps,
+  } = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
+  });
 
   return (
     <form style={{ marginTop: '18px' }} onSubmit={handleSubmit}>
       <label htmlFor='name'>Name:</label>
-      <input
-        type='text'
-        name='name'
-        id='name'
-        value={values.name}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
+      <input type='text' name='name' id='name' {...getFieldProps('name')} />
       {errors.name && touched.name ? <div>{errors.name}</div> : null}
       <label htmlFor='email'>Email:</label>
-      <input
-        type='email'
-        name='email'
-        id='email'
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
+      <input type='email' name='email' id='email' {...getFieldProps('email')} />
       {errors.email && touched.email ? <div>{errors.email}</div> : null}
       <label htmlFor='channel'>Channel :</label>
       <input
         type='channel'
         name='channel'
         id='channel'
-        value={values.channel}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        {...getFieldProps('channel')}
       />
       {errors.channel && touched.channel ? <div>{errors.channel}</div> : null}
       <button type='submit'>Submit</button>
