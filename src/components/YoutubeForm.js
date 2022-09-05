@@ -2,17 +2,17 @@ import React from 'react';
 import { useFormik } from 'formik';
 
 const YoutubeForm = () => {
-  const { handleChange, values } = useFormik({
+  const { handleChange, values, handleSubmit } = useFormik({
     initialValues: {
       name: '',
       email: '',
       channel: '',
     },
+    onSubmit: (values) => console.log(values),
   });
 
-  console.log(values);
   return (
-    <form style={{ marginTop: '18px' }}>
+    <form style={{ marginTop: '18px' }} onSubmit={handleSubmit}>
       <label htmlFor='name'>Name:</label>
       <input
         type='text'
@@ -37,7 +37,7 @@ const YoutubeForm = () => {
         value={values.channel}
         onChange={handleChange}
       />
-      <button>Submit</button>
+      <button type='submit'>Submit</button>
     </form>
   );
 };
