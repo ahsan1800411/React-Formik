@@ -29,11 +29,12 @@ const validate = (values) => {
 };
 
 const YoutubeForm = () => {
-  const { handleChange, values, handleSubmit, errors } = useFormik({
-    initialValues,
-    onSubmit,
-    validate,
-  });
+  const { handleChange, values, handleSubmit, errors, handleBlur, touched } =
+    useFormik({
+      initialValues,
+      onSubmit,
+      validate,
+    });
 
   return (
     <form style={{ marginTop: '18px' }} onSubmit={handleSubmit}>
@@ -44,8 +45,9 @@ const YoutubeForm = () => {
         id='name'
         value={values.name}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
-      {errors.name ? <div>{errors.name}</div> : null}
+      {errors.name && touched.name ? <div>{errors.name}</div> : null}
       <label htmlFor='email'>Email:</label>
       <input
         type='email'
@@ -53,8 +55,9 @@ const YoutubeForm = () => {
         id='email'
         value={values.email}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
-      {errors.email ? <div>{errors.email}</div> : null}
+      {errors.email && touched.email ? <div>{errors.email}</div> : null}
       <label htmlFor='channel'>Channel :</label>
       <input
         type='channel'
@@ -62,8 +65,9 @@ const YoutubeForm = () => {
         id='channel'
         value={values.channel}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
-      {errors.channel ? <div>{errors.channel}</div> : null}
+      {errors.channel && touched.channel ? <div>{errors.channel}</div> : null}
       <button type='submit'>Submit</button>
     </form>
   );
