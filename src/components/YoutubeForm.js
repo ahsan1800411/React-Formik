@@ -1,14 +1,38 @@
 import React from 'react';
 import { useFormik } from 'formik';
 
+const initialValues = {
+  name: '',
+  email: '',
+  channel: '',
+};
+
+const onSubmit = (values) => console.log(values);
+
+const validate = (values) => {
+  let errors = {};
+  if (!values.name) {
+    errors.name = 'Required';
+  }
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (
+    !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  ) {
+    errors.email = 'Invalid Email format';
+  }
+  if (!values.channel) {
+    errors.channel = 'Required';
+  }
+
+  return errors;
+};
+
 const YoutubeForm = () => {
-  const { handleChange, values, handleSubmit } = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      channel: '',
-    },
-    onSubmit: (values) => console.log(values),
+  const { handleChange, values, handleSubmit, errors } = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
   });
 
   return (
@@ -21,6 +45,7 @@ const YoutubeForm = () => {
         value={values.name}
         onChange={handleChange}
       />
+      {errors.name ? <div>{errors.name}</div> : null}
       <label htmlFor='email'>Email:</label>
       <input
         type='email'
@@ -29,6 +54,7 @@ const YoutubeForm = () => {
         value={values.email}
         onChange={handleChange}
       />
+      {errors.email ? <div>{errors.email}</div> : null}
       <label htmlFor='channel'>Channel :</label>
       <input
         type='channel'
@@ -37,6 +63,7 @@ const YoutubeForm = () => {
         value={values.channel}
         onChange={handleChange}
       />
+      {errors.channel ? <div>{errors.channel}</div> : null}
       <button type='submit'>Submit</button>
     </form>
   );
