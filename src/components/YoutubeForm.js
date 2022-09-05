@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import * as Yup from 'yup';
+
 const initialValues = {
   name: '',
   email: '',
@@ -9,31 +11,17 @@ const initialValues = {
 
 const onSubmit = (values) => console.log(values);
 
-// custom validtion but this validate function is built in formik
-const validate = (values) => {
-  let errors = {};
-  if (!values.name) {
-    errors.name = 'Required';
-  }
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (
-    !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-  ) {
-    errors.email = 'Invalid Email format';
-  }
-  if (!values.channel) {
-    errors.channel = 'Required';
-  }
-
-  return errors;
-};
+const validationSchema = Yup.object({
+  name: Yup.string().required('Required'),
+  email: Yup.string().email('Please enter valid email').required('Required'),
+  channel: Yup.string().required('Required'),
+});
 
 const YoutubeForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validate={validate}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       <Form style={{ marginTop: '18px' }}>
