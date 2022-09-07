@@ -10,6 +10,10 @@ const initialValues = {
   channel: '',
   comments: '',
   address: '',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
 };
 
 const onSubmit = (values) => console.log(values);
@@ -42,6 +46,11 @@ const YoutubeForm = () => {
         <Field type='text' name='channel' id='channel' placeholder='Channel' />
 
         <ErrorMessage name='channel' />
+
+        <label htmlFor='facebook'>Facebook :</label>
+        <Field type='text' name='social.facebook' id='facebook' />
+        <label htmlFor='twitter'>Twitter :</label>
+        <Field type='text' name='social.twitter' id='twitter' />
 
         {/* <Field as='textarea' name='channel' id='channel' />
 
