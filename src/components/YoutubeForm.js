@@ -8,6 +8,7 @@ const initialValues = {
   email: '',
   channel: '',
   comments: '',
+  address: '',
 };
 
 const onSubmit = (values) => console.log(values);
@@ -38,6 +39,18 @@ const YoutubeForm = () => {
         <ErrorMessage name='channel' />
 
         <Field as='textarea' name='channel' id='channel' />
+
+        <Field name='channel'>
+          {(props) => {
+            console.log(props);
+            const { field } = props;
+            return (
+              <>
+                <input type='text' {...field} />
+              </>
+            );
+          }}
+        </Field>
 
         <button type='submit'>Submit</button>
       </Form>
