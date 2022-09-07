@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-
 import * as Yup from 'yup';
 import Error from './Error';
 
@@ -32,36 +31,44 @@ const YoutubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      validateOnBlur={false}
-      validateOnChange={false}
+      // validateOnBlur={false}
+      // validateOnChange={false}
+      validateOnMount
     >
-      <Form style={{ marginTop: '18px' }}>
-        <label htmlFor='name'>Name:</label>
-        <Field type='text' name='name' id='name' />
-        <ErrorMessage name='name' component={Error} />
-        <label htmlFor='email'>Email:</label>
-        <Field type='email' name='email' id='email' />
-        <ErrorMessage name='email'>
-          {(error) => {
-            return <div style={{ color: 'red' }}>{error}</div>;
-          }}
-        </ErrorMessage>
-        <label htmlFor='channel'>Channel :</label>
-        <Field type='text' name='channel' id='channel' placeholder='Channel' />
+      {(formik) => {
+        return (
+          <Form style={{ marginTop: '18px' }}>
+            <label htmlFor='name'>Name:</label>
+            <Field type='text' name='name' id='name' />
+            <ErrorMessage name='name' component={Error} />
+            <label htmlFor='email'>Email:</label>
+            <Field type='email' name='email' id='email' />
+            <ErrorMessage name='email'>
+              {(error) => {
+                return <div style={{ color: 'red' }}>{error}</div>;
+              }}
+            </ErrorMessage>
+            <label htmlFor='channel'>Channel :</label>
+            <Field
+              type='text'
+              name='channel'
+              id='channel'
+              placeholder='Channel'
+            />
 
-        <ErrorMessage name='channel' />
+            <ErrorMessage name='channel' />
 
-        {/* <label htmlFor='facebook'>Facebook :</label>
+            {/* <label htmlFor='facebook'>Facebook :</label>
         <Field type='text' name='social.facebook' id='facebook' />
         <label htmlFor='twitter'>Twitter :</label>
         <Field type='text' name='social.twitter' id='twitter' /> */}
 
-        {/* <label htmlFor='primaryPhone'>Phone Number Primary :</label>
+            {/* <label htmlFor='primaryPhone'>Phone Number Primary :</label>
         <Field type='text' name='phoneNumbers[0' id='primaryPhone' />
         <label htmlFor='secondaryPhone'>Phone Number Secondary :</label>
         <Field type='text' name='phoneNumbers[1]' id='secondaryPhone' /> */}
 
-        {/* <Field as='textarea' name='channel' id='channel' />
+            {/* <Field as='textarea' name='channel' id='channel' />
 
         <Field name='address'>
           {(props) => {
@@ -74,28 +81,32 @@ const YoutubeForm = () => {
           }}
         </Field> */}
 
-        <FieldArray name='phNumbers'>
-          {(props) => {
-            const { remove, push, form } = props;
-            const {
-              values: { phNumbers },
-            } = form;
-            return (
-              <div>
-                {phNumbers.map((phNumber, index) => (
-                  <div key={index}>
-                    <Field name={`phNumber[${index}]`} />
-                    <button onClick={() => push('')}>+</button>
-                    <button onClick={() => remove()}>-</button>
+            <FieldArray name='phNumbers'>
+              {(props) => {
+                const { remove, push, form } = props;
+                const {
+                  values: { phNumbers },
+                } = form;
+                return (
+                  <div>
+                    {phNumbers.map((phNumber, index) => (
+                      <div key={index}>
+                        <Field name={`phNumber[${index}]`} />
+                        <button onClick={() => push('')}>+</button>
+                        <button onClick={() => remove()}>-</button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            );
-          }}
-        </FieldArray>
+                );
+              }}
+            </FieldArray>
 
-        <button type='submit'>Submit</button>
-      </Form>
+            <button type='submit' disabled={!formik.isValid}>
+              Submit
+            </button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
