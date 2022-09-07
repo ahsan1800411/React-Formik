@@ -43,9 +43,9 @@ const YoutubeForm = () => {
 
         <ErrorMessage name='channel' />
 
-        <Field as='textarea' name='channel' id='channel' />
+        {/* <Field as='textarea' name='channel' id='channel' />
 
-        <Field name='channel'>
+        <Field name='address'>
           {(props) => {
             const { field } = props;
             return (
@@ -54,7 +54,7 @@ const YoutubeForm = () => {
               </>
             );
           }}
-        </Field>
+        </Field> */}
 
         <button type='submit'>Submit</button>
       </Form>
