@@ -17,7 +17,10 @@ const initialValues = {
   phNumbers: [''],
 };
 
-const onSubmit = (values) => console.log(values);
+const onSubmit = (values, onSubmitProps) => {
+  console.log(values);
+  onSubmitProps.setSubmitting(false);
+};
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Required'),
@@ -101,7 +104,10 @@ const YoutubeForm = () => {
               }}
             </FieldArray>
 
-            <button type='submit' disabled={!formik.isValid}>
+            <button
+              type='submit'
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
               Submit
             </button>
           </Form>
