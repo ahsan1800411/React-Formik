@@ -14,6 +14,7 @@ const initialValues = {
     facebook: '',
     twitter: '',
   },
+  phoneNumbers: ['', ''],
 };
 
 const onSubmit = (values) => console.log(values);
@@ -47,10 +48,15 @@ const YoutubeForm = () => {
 
         <ErrorMessage name='channel' />
 
-        <label htmlFor='facebook'>Facebook :</label>
+        {/* <label htmlFor='facebook'>Facebook :</label>
         <Field type='text' name='social.facebook' id='facebook' />
         <label htmlFor='twitter'>Twitter :</label>
-        <Field type='text' name='social.twitter' id='twitter' />
+        <Field type='text' name='social.twitter' id='twitter' /> */}
+
+        <label htmlFor='primaryPhone'>Phone Number Primary :</label>
+        <Field type='text' name='phoneNumbers[0' id='primaryPhone' />
+        <label htmlFor='secondaryPhone'>Phone Number Secondary :</label>
+        <Field type='text' name='phoneNumbers[1]' id='secondaryPhone' />
 
         {/* <Field as='textarea' name='channel' id='channel' />
 
