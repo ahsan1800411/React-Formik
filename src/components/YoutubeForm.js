@@ -7,6 +7,7 @@ const initialValues = {
   name: '',
   email: '',
   channel: '',
+  comments: '',
 };
 
 const onSubmit = (values) => console.log(values);
@@ -32,9 +33,11 @@ const YoutubeForm = () => {
         <Field type='email' name='email' id='email' />
         <ErrorMessage name='email' />
         <label htmlFor='channel'>Channel :</label>
-        <Field type='channel' name='channel' id='channel' />
+        <Field type='text' name='channel' id='channel' placeholder='Channel' />
 
         <ErrorMessage name='channel' />
+
+        <Field as='textarea' name='channel' id='channel' />
 
         <button type='submit'>Submit</button>
       </Form>
