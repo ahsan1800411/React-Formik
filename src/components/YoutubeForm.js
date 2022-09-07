@@ -32,6 +32,8 @@ const YoutubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      validateOnBlur={false}
+      validateOnChange={false}
     >
       <Form style={{ marginTop: '18px' }}>
         <label htmlFor='name'>Name:</label>
