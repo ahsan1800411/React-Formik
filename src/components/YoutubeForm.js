@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 
 import * as Yup from 'yup';
 import Error from './Error';
@@ -15,6 +15,7 @@ const initialValues = {
     twitter: '',
   },
   phoneNumbers: ['', ''],
+  phNumbers: [''],
 };
 
 const onSubmit = (values) => console.log(values);
@@ -53,10 +54,10 @@ const YoutubeForm = () => {
         <label htmlFor='twitter'>Twitter :</label>
         <Field type='text' name='social.twitter' id='twitter' /> */}
 
-        <label htmlFor='primaryPhone'>Phone Number Primary :</label>
+        {/* <label htmlFor='primaryPhone'>Phone Number Primary :</label>
         <Field type='text' name='phoneNumbers[0' id='primaryPhone' />
         <label htmlFor='secondaryPhone'>Phone Number Secondary :</label>
-        <Field type='text' name='phoneNumbers[1]' id='secondaryPhone' />
+        <Field type='text' name='phoneNumbers[1]' id='secondaryPhone' /> */}
 
         {/* <Field as='textarea' name='channel' id='channel' />
 
@@ -70,6 +71,26 @@ const YoutubeForm = () => {
             );
           }}
         </Field> */}
+
+        <FieldArray name='phNumbers'>
+          {(props) => {
+            const { remove, push, form } = props;
+            const {
+              values: { phNumbers },
+            } = form;
+            return (
+              <div>
+                {phNumbers.map((phNumber, index) => (
+                  <div key={index}>
+                    <Field name={`phNumber[${index}]`} />
+                    <button onClick={() => push('')}>+</button>
+                    <button onClick={() => remove()}>-</button>
+                  </div>
+                ))}
+              </div>
+            );
+          }}
+        </FieldArray>
 
         <button type='submit'>Submit</button>
       </Form>
