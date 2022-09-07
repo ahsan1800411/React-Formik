@@ -33,7 +33,11 @@ const YoutubeForm = () => {
         <ErrorMessage name='name' component={Error} />
         <label htmlFor='email'>Email:</label>
         <Field type='email' name='email' id='email' />
-        <ErrorMessage name='email' />
+        <ErrorMessage name='email'>
+          {(error) => {
+            return <div style={{ color: 'red' }}>{error}</div>;
+          }}
+        </ErrorMessage>
         <label htmlFor='channel'>Channel :</label>
         <Field type='text' name='channel' id='channel' placeholder='Channel' />
 
